@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Книга
+{% endblock %}
+
+{% block content %}
+<br>
+<br>
+
+<div class="container">
+    <div class="row row-pb-lg">
+        <div class="col-sm-6 mb-3">
+            <img src="{{ books.image.url }}" style="width:75%" class="rounded float-start" alt="...">
+        </div>
+        <div class="col-sm-6">
+            <div class="about-wrap">
+                <h2>{{ books.title }}</h2>
+                <p>{{ books.book }}</p>
+                <h4>Author: {{ books.author }}, {{ books.created }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="comment-form-wrap pt-5">
+    <form method="post" class="p-5 bg-light">
+        {% csrf_token %}
+        {{ forms }}
+        <button class="btn btn-primary" type="submit">Отправить</button>
+    </form>
+</div>
+<br>
+<br>
+<h2 class="text-center">Коментариев {{ comments.count }}:</h2>
+{% for comment in comments %}
+
+<div class="comment-body">
+    <h3>{{comment.name}}</h3>
+    <p>{{comment.comment}}</p>
+    <div class="meta">{{comment.created}}</div>
+</div>
+<br>
+
+{% endfor %}
+
+
+{% endblock %}
